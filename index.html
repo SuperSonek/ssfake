@@ -261,15 +261,16 @@
 
                     html2canvas(document.getElementById("iphone_screen")).then(function(canvas) {
 
-                        var my_screen = canvas;
-                        document.getElementById("result").appendChild(my_screen);
+                        const link = document.createElement('a');
+                        link.download = 'download.png';
+                        link.href = canvas.toDataURL("image/png");
+                        link.click();
+                        link.delete;
 
-                        //const link = document.createElement('a');
-                        //link.download = 'download.png';
-                        //link.href = canvas.toDataURL();
-                        //link.click();
-                        //link.delete;
+                        //var my_screen = canvas;
+                        //document.getElementById("result").appendChild(my_screen);
 
+                        
                         //var img = canvas.toDataURL("image/png");
 
                         //localStorage.setItem("elephant", img);
