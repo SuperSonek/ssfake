@@ -1,0 +1,252 @@
+<HTML>
+      <HEAD>
+        <TITLE>Sum</TITLE>
+
+
+        <style media="screen">
+
+            body {
+                font-family: Arial;
+            }
+
+
+            img {
+                pointer-events: none;
+                position: absolute;
+                width: 828px;
+                height: 1792px;
+                z-index: -1;
+            }
+
+            .iphone_time {
+                font-size: 30px;
+                margin-left: 50px;
+                margin-top: 20px;
+            }
+
+            button {
+                background-color: #fff;
+                color: #000;
+            }
+
+            .iphone_screen {
+                color: #fff;
+
+                width: 828px;
+                height: 1792px;
+
+                box-sizing: border-box;
+
+            }
+
+            .top_bar {
+                padding: 20px 20px 20px 20px;
+                background-color: #100F14;
+            }
+
+            .app_menu {
+            }
+
+            .position {
+                margin-top: 445px;
+
+                width: 100%;
+                color: #fff;
+                border-radius: 30px;
+                padding-top: 37px;
+                padding-left: 34px;
+                padding-right: 34px;
+                box-sizing: border-box;
+            }
+
+            .position_columns {
+                box-sizing: border-box;
+                width: 100%;
+
+            }
+
+            .position_left, .position_right {
+                box-sizing: border-box;
+                float: left;
+                width: 50%;
+                flex-direction: column;
+            }
+
+            .position_left {
+                opacity: 0;
+
+            }
+
+            .position_right {
+            }
+
+            .position span {
+                font-size: 25px;
+                display: block;
+                margin-bottom: 34px;
+            }
+
+            .position_right > span {
+                width: 100%;
+                text-align: right;
+            }
+
+            .form {
+                flex-direction: column;
+            }
+
+            .get_ss_btn {
+                display: block;
+                width: 100px;
+                background-color: red;
+                color: black;
+                padding: 20px;
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+
+            .close_by_btn {
+                opacity: 0;
+            }
+        </style>
+
+        <script type="text/javascript">
+
+            function save() {
+                var coin = document.myform.coin.value;
+                var entry_price = document.myform.entry_price.value;
+                var margin = document.myform.margin.value + " USDT";
+
+                // document.getElementById('add').value = sum;
+
+                document.getElementById("coin").textContent = coin
+                document.getElementById("entry_price").textContent = entry_price;
+                document.getElementById("margin").textContent = margin;
+            }
+        </script>    
+
+
+        <script>
+
+        
+
+            // Создание скриншота
+            window.onload = function() {
+                // Кнопка нажата
+                document.getElementById("get_images").onclick = function() {
+
+                    html2canvas(document.getElementById("iphone_screen")).then(function(canvas) {
+
+                        //var my_screen = canvas;
+                        //document.getElementById("result").appendChild(my_screen);
+
+                        const link = document.createElement('a');
+                        link.download = 'download.png';
+                        link.href = canvas.toDataURL();
+                        link.click();
+                        link.delete;
+
+                        //var img = canvas.toDataURL("image/png");
+                        //document.write('<img crossorigin="anonymous" src="'+img+'"/>');
+
+                    });
+
+                    
+
+                };
+    
+            }
+
+        </script>
+
+
+        <script type="text/javascript" src="html2canvas.js"></script>
+
+      </HEAD>
+
+
+        <BODY>
+
+
+            <div>
+                <span>ВВОД ЗНАЧЕНИЙ</span>
+                <FORM class="form" NAME="myform">
+
+                    <div>
+                        <label>Coin</label>
+                        <input type="text" name="coin" value="">
+                    </div>
+
+                    <div>
+                        <label>Entry price</label>
+                        <INPUT TYPE="text" NAME="entry_price" VALUE="">
+                    </div>
+
+                    <div>
+                        <label>Margin</label>
+                        <INPUT TYPE="text" NAME="margin" VALUE="">
+                    </div>
+
+                    <INPUT TYPE="button" NAME="button" Value="Сохранить" onClick="save()">
+                </FORM>
+            </div>
+
+
+            <div id="result"></div>
+            <a href="javascript: void(0);" id="get_images" class="get_ss_btn">ПОЛУЧИТЬ СКРИНШОТ</a>
+
+
+            <div class="iphone_screen" id="iphone_screen">
+
+                <img src="bybit_position_template.jpg">
+
+                <div class="top_bar">
+                    <span class="iphone_time">13:43</span>
+                </div>
+
+
+                <div class="position">
+                    <div>
+                        <span class="coin_name" id="coin"></span>
+                    </div>
+                    <div class="position_columns">
+                        <div class="position_left">  
+                            <span>Position Size</span>
+                            <span>Entry Price</span>
+                            <span>Mark Price</span>
+                            <span>Estimated Liq. Price</span>
+                            <span>Value</span>
+                            <span>Unrealized PNL (%)</span>
+                            <span>Realized PNL</span>
+                            <span>ADL Ranking</span>
+                            <span>Margin</span>
+                            <span>TP/SL</span>
+                            <span>Trailing Stop</span>
+                        </div>
+                        <div class="position_right">
+                            <span id='position_size'>---</span>
+                            <span id='entry_price'>---</span>
+                            <span id='mark_price'>---</span>
+                            <span id='liq_price'>---</span>
+                            <span id='value'>---</span>
+                            <span id='margin'>---</span>
+                            <span id='margin'>---</span>
+                            <span id='margin'>---</span>
+                            <span id='margin'>---</span>
+                            <span id='margin'>---</span>
+                            <span id='margin'>---</span>
+                        </div>    
+                    </div>
+
+                    <div class="close_by_btn">
+                        <span>Close By</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            
+
+      </BODY>
+</HTML>
