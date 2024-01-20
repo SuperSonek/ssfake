@@ -261,8 +261,8 @@
 
                     html2canvas(document.getElementById("iphone_screen")).then(function(canvas) {
 
-                        //var my_screen = canvas;
-                        //document.getElementById("result").appendChild(my_screen);
+                        var my_screen = canvas;
+                        document.getElementById("result").appendChild(my_screen);
 
                         //const link = document.createElement('a');
                         //link.download = 'download.png';
@@ -270,9 +270,9 @@
                         //link.click();
                         //link.delete;
 
-                        var img = canvas.toDataURL("image/png");
+                        //var img = canvas.toDataURL("image/png");
 
-                        localStorage.setItem("elephant", img);
+                        //localStorage.setItem("elephant", img);
 
                         //document.write('<img crossorigin="anonymous" src="'+img+'"/>');
 
