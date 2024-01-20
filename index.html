@@ -10,13 +10,6 @@
             }
 
 
-            img {
-                pointer-events: none;
-                position: absolute;
-                width: 828px;
-                height: 1792px;
-                z-index: -1;
-            }
 
             .iphone_time {
                 font-size: 30px;
@@ -35,8 +28,13 @@
                 width: 828px;
                 height: 1792px;
 
+                padding-left: 25px;
+                padding-right: 25px;
                 box-sizing: border-box;
 
+                background-image: url("bybit_position_template.jpg");
+
+                background-position: center;
             }
 
             .top_bar {
@@ -134,7 +132,7 @@
             window.onload = function() {
                 // Кнопка нажата
                 document.getElementById("get_images").onclick = function() {
-
+                    
                     html2canvas(document.getElementById("iphone_screen")).then(function(canvas) {
 
                         //var my_screen = canvas;
@@ -197,9 +195,6 @@
 
 
             <div class="iphone_screen" id="iphone_screen">
-
-                <img src="bybit_position_template.jpg">
-
                 <div class="top_bar">
                     <span class="iphone_time">13:43</span>
                 </div>
