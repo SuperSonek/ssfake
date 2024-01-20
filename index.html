@@ -13,7 +13,7 @@
 
             .iphone_time {
                 font-size: 30px;
-                margin-left: 50px;
+                margin-left: 45px;
                 margin-top: 20px;
             }
 
@@ -22,45 +22,56 @@
                 color: #000;
             }
 
+            input {
+                font-size: 25px;
+            }
+
             .iphone_screen {
                 color: #fff;
 
                 width: 828px;
                 height: 1792px;
 
-                padding-left: 25px;
-                padding-right: 25px;
                 box-sizing: border-box;
 
-                background-image: url("bybit_position_template.jpg");
+                background-image: url("bybit_position_WORK.jpg");
 
                 background-position: center;
             }
 
             .top_bar {
-                padding: 20px 20px 20px 20px;
-                background-color: #100F14;
+                height: 65px;
+                padding-top: 32px;
+                padding-left: 20px;
             }
 
             .app_menu {
             }
 
             .position {
-                margin-top: 445px;
-
+                margin-top: 380px;
+                height: 925px;
                 width: 100%;
                 color: #fff;
                 border-radius: 30px;
-                padding-top: 37px;
-                padding-left: 34px;
-                padding-right: 34px;
+                padding-left: 60px;
+                padding-right: 66px;
                 box-sizing: border-box;
+            }
+
+            .position_header {
+                height: 100px;
+                box-sizing: border-box;
+                padding-top: 30px;
+                padding-left: 5px;
+                flex-direction: row;
             }
 
             .position_columns {
                 box-sizing: border-box;
                 width: 100%;
-
+                height: 100%;
+                padding-top: 20px;
             }
 
             .position_left, .position_right {
@@ -78,19 +89,22 @@
             .position_right {
             }
 
-            .position span {
-                font-size: 25px;
-                display: block;
-                margin-bottom: 34px;
-            }
 
             .position_right > span {
                 width: 100%;
                 text-align: right;
+                font-size: 25px;
+                display: block;
+                margin-bottom: 27px;
             }
 
             .form {
                 flex-direction: column;
+
+            }
+
+            .form > div {
+                margin-bottom: 20px;
             }
 
             .get_ss_btn {
@@ -103,22 +117,103 @@
                 margin-bottom: 30px;
             }
 
-            .close_by_btn {
-                opacity: 0;
+
+            .position_size {
+                color: red;
+
             }
+            .liq_price {
+                color: orange;
+            }
+
+            .entering_values_box {
+                background-color: lightgrey;
+            }
+
+            .coin_name {
+                display: inline-block;
+                font-size: 30px;
+            }
+
+            .buy_or_sell {
+                display: inline-block;
+                border-radius: 5px;
+                margin-left: 5px;
+                padding-left: 7px;
+                padding-top: 5px;
+                padding-right: 7px;
+                padding-bottom: 5px;
+                background-color: blue;
+                font-size: 20px;
+            }
+
+            .laverage {
+                display: inline-block;
+                border-radius: 5px;
+                
+                padding-left: 10px;
+                padding-top: 5px;
+                padding-right: 10px;
+                padding-bottom: 5px;
+                margin-left: 10px;
+                background-color: orange;
+                font-size: 20px;
+            }
+
         </style>
 
         <script type="text/javascript">
 
             function save() {
+
+                var template_type = document.myform.template_type.value;
+                var time = document.myform.time.value;
                 var coin = document.myform.coin.value;
+                var buy_or_sell = document.myform.buy_or_sell.value 
                 var entry_price = document.myform.entry_price.value;
                 var margin = document.myform.margin.value + " USDT";
 
+                // Установка фона скриншота 
+                if (template_type == "work") {
+                    document.getElementById('iphone_screen').style.backgroundImage="url(bybit_position_WORK.jpg)"; 
+                } else {
+                    document.getElementById('iphone_screen').style.backgroundImage="url(bybit_position_TEST.png)"; 
+                }
+
+                if (buy_or_sell == "BUY") {
+                    //document.getElementById("buy_or_sell").style.backgroundColor = "#fgw3g3";
+                } else {
+                    //document.getElementById("buy_or_sell").style.backgroundColor = "#we324f";
+                }
+
                 // document.getElementById('add').value = sum;
 
-                document.getElementById("coin").textContent = coin
+
+                const url = "https://api.binance.com/api/v3/ticker/price?symbol=" + coin;
+                
+
+                const xhr = new XMLHttpRequest();
+                xhr.open("GET", url, true);
+                xhr.responseType = 'json';
+                xhr.send();
+
+                xhr.onload = () => {
+                    console.log(xhr.response.price);
+                };
+
+
+
+                // шапка позиции
+                document.getElementById("iphone_time").textContent = time;
+                document.getElementById("coin").textContent = coin;
+                document.getElementById("buy_or_sell").textContent = "SELL";
+
+                // тело позиции
+                document.getElementById("position_size").textContent = "27.98";
                 document.getElementById("entry_price").textContent = entry_price;
+                document.getElementById("mark_price").textContent = "2,485.37";
+                document.getElementById("liq_price").textContent = "1,687.72";
+                document.getElementById("value").textContent = "51,731.0050";
                 document.getElementById("margin").textContent = margin;
             }
         </script>    
@@ -132,7 +227,7 @@
             window.onload = function() {
                 // Кнопка нажата
                 document.getElementById("get_images").onclick = function() {
-                    
+
                     html2canvas(document.getElementById("iphone_screen")).then(function(canvas) {
 
                         //var my_screen = canvas;
@@ -166,44 +261,69 @@
         <BODY>
 
 
-            <div>
-                <span>ВВОД ЗНАЧЕНИЙ</span>
+            <div class="entering_values_box">
+                <h1>ВВОД ЗНАЧЕНИЙ</h1>
                 <FORM class="form" NAME="myform">
 
                     <div>
+                        <span>Тип шаблона:</span>
+                        <label>Рабочий (пустой)</label>
+                        <input type="radio" id="template_type" name="template_type" value="work" checked="checked"/>
+                        <label>Тестовый (для подгонки)</label>
+                        <input type="radio" id="template_type" name="template_type" value="test" />
+
+                    </div>
+
+                    <div>
+                        <label>Time</label>
+                        <input type="text" name="time" value="14:52">
+                    </div>
+
+                    <div>
                         <label>Coin</label>
-                        <input type="text" name="coin" value="">
+                        <input type="text" name="coin" value="ETHUSDT">
+                    </div>
+
+                    <div>
+                        <label>BUY</label>
+                        <input type="radio" id="buy_or_sell" name="buy_or_sell" value="BUY" checked="checked"/>
+                        <label>SELL</label>
+                        <input type="radio" id="buy_or_sell" name="buy_or_sell" value="SELL" />
+
                     </div>
 
                     <div>
                         <label>Entry price</label>
-                        <INPUT TYPE="text" NAME="entry_price" VALUE="">
+                        <INPUT TYPE="text" NAME="entry_price" VALUE="1,848.91">
                     </div>
 
                     <div>
                         <label>Margin</label>
-                        <INPUT TYPE="text" NAME="margin" VALUE="">
+                        <INPUT TYPE="text" NAME="margin" VALUE="1,034.6201">
                     </div>
 
-                    <INPUT TYPE="button" NAME="button" Value="Сохранить" onClick="save()">
+                    <INPUT TYPE="button" NAME="button" Value="ВНЕСТИ ЗНАЧЕНИЯ" onClick="save()">
                 </FORM>
             </div>
 
 
             <div id="result"></div>
-            <a href="javascript: void(0);" id="get_images" class="get_ss_btn">ПОЛУЧИТЬ СКРИНШОТ</a>
+            <a href="javascript: void(0);" id="get_images" class="get_ss_btn">СОХРАНИТЬ СКРИНШОТ</a>
 
 
             <div class="iphone_screen" id="iphone_screen">
                 <div class="top_bar">
-                    <span class="iphone_time">13:43</span>
+                    <span class="iphone_time" id="iphone_time"></span>
                 </div>
 
 
                 <div class="position">
-                    <div>
+                    <div class="position_header">
                         <span class="coin_name" id="coin"></span>
+                        <span id="buy_or_sell" class="buy_or_sell">Short</span>
+                        <span id="laverage" class="laverage">Cross 50.00x</span>
                     </div>
+
                     <div class="position_columns">
                         <div class="position_left">  
                             <span>Position Size</span>
@@ -219,10 +339,10 @@
                             <span>Trailing Stop</span>
                         </div>
                         <div class="position_right">
-                            <span id='position_size'>---</span>
+                            <span id='position_size' class="position_size">---</span>
                             <span id='entry_price'>---</span>
                             <span id='mark_price'>---</span>
-                            <span id='liq_price'>---</span>
+                            <span id='liq_price' class="liq_price">---</span>
                             <span id='value'>---</span>
                             <span id='margin'>---</span>
                             <span id='margin'>---</span>
@@ -233,9 +353,6 @@
                         </div>    
                     </div>
 
-                    <div class="close_by_btn">
-                        <span>Close By</span>
-                    </div>
                 </div>
 
             </div>
