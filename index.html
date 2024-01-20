@@ -271,7 +271,10 @@
                         //link.delete;
 
                         var img = canvas.toDataURL("image/png");
-                        document.write('<img crossorigin="anonymous" src="'+img+'"/>');
+
+                        localStorage.setItem("elephant", img);
+
+                        //document.write('<img crossorigin="anonymous" src="'+img+'"/>');
 
                     });
                 };
