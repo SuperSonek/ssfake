@@ -27,6 +27,8 @@
             }
 
             .iphone_screen {
+                margin: 0 auto;
+
                 color: #fff;
 
                 width: 828px;
@@ -62,9 +64,10 @@
             .position_header {
                 height: 100px;
                 box-sizing: border-box;
-                padding-top: 30px;
+                padding-top: 25px;
                 padding-left: 5px;
-                flex-direction: row;
+
+
             }
 
             .position_columns {
@@ -77,16 +80,17 @@
             .position_left, .position_right {
                 box-sizing: border-box;
                 float: left;
-                width: 50%;
                 flex-direction: column;
             }
 
             .position_left {
                 opacity: 0;
+                width: 10%;
 
             }
 
             .position_right {
+                width: 90%;
             }
 
 
@@ -104,7 +108,7 @@
             }
 
             .form > div {
-                margin-bottom: 20px;
+                margin-bottom: 22px;
             }
 
             .get_ss_btn {
@@ -119,7 +123,7 @@
 
 
             .position_size {
-                color: red;
+                color: #DC5350;;
 
             }
             .liq_price {
@@ -133,31 +137,49 @@
             .coin_name {
                 display: inline-block;
                 font-size: 30px;
+                margin-top: 10px;
             }
 
-            .buy_or_sell {
+            .longshort {
                 display: inline-block;
                 border-radius: 5px;
-                margin-left: 5px;
                 padding-left: 7px;
-                padding-top: 5px;
                 padding-right: 7px;
-                padding-bottom: 5px;
                 background-color: blue;
-                font-size: 20px;
+                font-size: 21px;
+
+                padding-top: 5px;
+                padding-bottom: 5px;
+
+                margin-left: 5px;
             }
 
             .laverage {
                 display: inline-block;
                 border-radius: 5px;
-                
+
                 padding-left: 10px;
-                padding-top: 5px;
                 padding-right: 10px;
-                padding-bottom: 5px;
-                margin-left: 10px;
-                background-color: orange;
+                margin-left: 8px;
+                background-color: #2A241B;
+                color: #F7A619;
                 font-size: 20px;
+
+                padding-top: 5px;
+                padding-bottom: 5px;
+
+            }
+
+            .unr_pnl, .unr_pnl_rounded, .r_pnl, .r_pnl_rounded {
+                color: #DC5350;
+            }
+
+            .unr_pnl, .r_pnl {
+                margin-bottom: 5px !important;
+            }
+
+            .margin {
+                margin-top: 110px;
             }
 
         </style>
@@ -166,12 +188,18 @@
 
             function save() {
 
+                // Вводные данные из формы 
                 var template_type = document.myform.template_type.value;
                 var time = document.myform.time.value;
                 var coin = document.myform.coin.value;
-                var buy_or_sell = document.myform.buy_or_sell.value 
+                var longshort = document.myform.longshort.value 
+                var laverage = document.myform.laverage.value;
                 var entry_price = document.myform.entry_price.value;
                 var margin = document.myform.margin.value + " USDT";
+                var balance = document.myform.balance.value;
+                var tp = document.myform.tp.value;
+                var sl = document.myform.tp.value;
+
 
                 // Установка фона скриншота 
                 if (template_type == "work") {
@@ -180,49 +208,52 @@
                     document.getElementById('iphone_screen').style.backgroundImage="url(bybit_position_TEST.png)"; 
                 }
 
-                if (buy_or_sell == "BUY") {
-                    //document.getElementById("buy_or_sell").style.backgroundColor = "#fgw3g3";
+
+                // Отрисовка ярлыка продажа / покупка
+                if (longshort == "Long") {
+                    document.getElementById("longshort").textContent = "Long";
+                    document.getElementById("longshort").style.backgroundColor = "#1A2C27";
+                    document.getElementById("longshort").style.color = "#20B26C";
                 } else {
-                    //document.getElementById("buy_or_sell").style.backgroundColor = "#we324f";
+                    document.getElementById("longshort").textContent = "Short";
+                    document.getElementById("longshort").style.backgroundColor = "#331E22";
+                    document.getElementById("longshort").style.color = "#EF454A";
                 }
 
-                // document.getElementById('add').value = sum;
 
-
+                // Получение цены монеты 
                 const url = "https://api.binance.com/api/v3/ticker/price?symbol=" + coin;
-                
-
                 const xhr = new XMLHttpRequest();
                 xhr.open("GET", url, true);
                 xhr.responseType = 'json';
                 xhr.send();
-
                 xhr.onload = () => {
                     console.log(xhr.response.price);
                 };
 
 
-
-                // шапка позиции
+                // Отрисовка шапки позиции
                 document.getElementById("iphone_time").textContent = time;
                 document.getElementById("coin").textContent = coin;
-                document.getElementById("buy_or_sell").textContent = "SELL";
+                document.getElementById("laverage").textContent = "Cross " + laverage + ".00x";
 
-                // тело позиции
+                // Отрисовка тела позиции
                 document.getElementById("position_size").textContent = "27.98";
                 document.getElementById("entry_price").textContent = entry_price;
                 document.getElementById("mark_price").textContent = "2,485.37";
                 document.getElementById("liq_price").textContent = "1,687.72";
                 document.getElementById("value").textContent = "51,731.0050";
+                document.getElementById("unr_pnl").textContent = "-17,807.6355" + " USDT " + "(-1721.18%)";
+                document.getElementById("unr_pnl_rounded").textContent = "~ -17807.64" + " USD";
+                document.getElementById("r_pnl").textContent = "-31.0386" + " USDT";
+                document.getElementById("r_pnl_rounded").textContent = "~ -31.04" + " USD";
                 document.getElementById("margin").textContent = margin;
             }
         </script>    
 
 
+        <script type="text/javascript" src="html2canvas.js"></script>
         <script>
-
-        
-
             // Создание скриншота
             window.onload = function() {
                 // Кнопка нажата
@@ -233,34 +264,24 @@
                         //var my_screen = canvas;
                         //document.getElementById("result").appendChild(my_screen);
 
-                        const link = document.createElement('a');
-                        link.download = 'download.png';
-                        link.href = canvas.toDataURL();
-                        link.click();
-                        link.delete;
+                        //const link = document.createElement('a');
+                        //link.download = 'download.png';
+                        //link.href = canvas.toDataURL();
+                        //link.click();
+                        //link.delete;
 
-                        //var img = canvas.toDataURL("image/png");
-                        //document.write('<img crossorigin="anonymous" src="'+img+'"/>');
+                        var img = canvas.toDataURL("image/png");
+                        document.write('<img crossorigin="anonymous" src="'+img+'"/>');
 
                     });
-
-                    
-
                 };
-    
             }
 
         </script>
-
-
-        <script type="text/javascript" src="html2canvas.js"></script>
-
       </HEAD>
 
 
         <BODY>
-
-
             <div class="entering_values_box">
                 <h1>ВВОД ЗНАЧЕНИЙ</h1>
                 <FORM class="form" NAME="myform">
@@ -285,10 +306,15 @@
                     </div>
 
                     <div>
+                        <label>Laverage</label>
+                        <input type="text" name="laverage" value="50">
+                    </div>
+
+                    <div>
                         <label>BUY</label>
-                        <input type="radio" id="buy_or_sell" name="buy_or_sell" value="BUY" checked="checked"/>
+                        <input type="radio" name="longshort" value="Long" checked="checked"/>
                         <label>SELL</label>
-                        <input type="radio" id="buy_or_sell" name="buy_or_sell" value="SELL" />
+                        <input type="radio" name="longshort" value="Short" />
 
                     </div>
 
@@ -300,6 +326,21 @@
                     <div>
                         <label>Margin</label>
                         <INPUT TYPE="text" NAME="margin" VALUE="1,034.6201">
+                    </div>
+
+                    <div>
+                        <label>Balance</label>
+                        <INPUT TYPE="text" NAME="balance" VALUE="">
+                    </div>
+
+                    <div>
+                        <label>Take Profit</label>
+                        <input type="text" name="tp" value="">
+                    </div>
+
+                    <div>
+                        <label>Stop Loss</label>
+                        <input type="text" name="sl" value="">
                     </div>
 
                     <INPUT TYPE="button" NAME="button" Value="ВНЕСТИ ЗНАЧЕНИЯ" onClick="save()">
@@ -319,9 +360,9 @@
 
                 <div class="position">
                     <div class="position_header">
-                        <span class="coin_name" id="coin"></span>
-                        <span id="buy_or_sell" class="buy_or_sell">Short</span>
-                        <span id="laverage" class="laverage">Cross 50.00x</span>
+                        <span class="coin_name" id="coin">XXXUSDT</span>
+                        <span id="longshort" class="longshort">Short</span>
+                        <span id="laverage" class="laverage">Cross 00.00x</span>
                     </div>
 
                     <div class="position_columns">
@@ -344,12 +385,12 @@
                             <span id='mark_price'>---</span>
                             <span id='liq_price' class="liq_price">---</span>
                             <span id='value'>---</span>
-                            <span id='margin'>---</span>
-                            <span id='margin'>---</span>
-                            <span id='margin'>---</span>
-                            <span id='margin'>---</span>
-                            <span id='margin'>---</span>
-                            <span id='margin'>---</span>
+                            <span id='unr_pnl' class="unr_pnl">---</span>
+                            <span id='unr_pnl_rounded' class="unr_pnl_rounded">---</span>
+                            <span id='r_pnl' class="r_pnl">---</span>
+                            <span id='r_pnl_rounded' class="r_pnl_rounded">---</span>
+                            <span id='margin' class="margin">---</span>
+                            <span id='tp_sl'>---</span>
                         </div>    
                     </div>
 
