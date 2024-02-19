@@ -1,5 +1,7 @@
 body {
     font-family: Arial;
+    background-color: #0F121E;
+    color: #fff;
 }
 
 
@@ -10,14 +12,48 @@ button {
 input {
     font-size: 25px;
 }
+
+.container {
+    box-sizing: border-box;
+    height: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.form_box, .iphone_screen {
+    flex-direction: column;
+}
+
+
+.form_box {
+    border: 3px solid pink;
+    float: left;
+}
+
+.enter_data_btn {
+    background-color: orange;
+}
+
+.get_ss_btn {
+    display: block;
+    background-color: green;
+    color: black;
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
 .iphone_screen {
-    margin: 0 auto;
+    float: right;
     color: #fff;
-    width: 828px;
-    height: 1792px;
+
+    width: 414px;
+    height: 896px;
+
     box-sizing: border-box;
     background-image: url("bybit_position_WORK.jpg");
     background-position: center;
+    background-size: 414px 896px;
 }
 
 .top_bar {
@@ -126,15 +162,7 @@ input {
     margin-bottom: 22px;
 }
 
-.get_ss_btn {
-    display: block;
-    width: 100px;
-    background-color: red;
-    color: black;
-    padding: 20px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
+
 
 .position_size {
     color: #DC5350;;
@@ -144,9 +172,7 @@ input {
     color: orange;
 }
 
-.entering_values_box {
-    background-color: lightgrey;
-}
+
 
 .unr_pnl, .unr_pnl_rounded, .r_pnl, .r_pnl_rounded {
     color: #DC5350;
