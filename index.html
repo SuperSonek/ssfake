@@ -1,301 +1,55 @@
 <HTML>
-      <HEAD>
-        <TITLE>Sum</TITLE>
+        <HEAD>
+            <TITLE>Sum</TITLE>
 
+            <link rel="stylesheet" href="styles.css">
 
-        <style media="screen">
+            <script type="text/javascript" src="script.js"></script>
+            <script type="text/javascript" src="html2canvas.js"></script>
 
-            body {
-                font-family: Arial;
-            }
+            <script>
+                // Создание и сохранение скриншота
+                window.onload = function() {
+                    // Кнопка нажата
+                    document.getElementById("get_images").onclick = function() {
 
+                        html2canvas(document.getElementById("iphone_screen")).then(function(canvas) {
 
+                            const link = document.createElement('a');
+                            link.download = 'download.png';
+                            link.href = canvas.toDataURL("image/png");
+                            link.target = '_blank';
+                            link.click();
+                            link.delete;
 
-            .iphone_time {
-                font-size: 30px;
-                margin-left: 45px;
-                margin-top: 20px;
-            }
+                            //var my_screen = canvas;
+                            //document.getElementById("result").appendChild(my_screen);
 
-            button {
-                background-color: #fff;
-                color: #000;
-            }
+                            
+                            //var img = canvas.toDataURL("image/png");
 
-            input {
-                font-size: 25px;
-            }
+                            //localStorage.setItem("elephant", img);
 
-            .iphone_screen {
-                margin: 0 auto;
+                            //document.write('<img crossorigin="anonymous" src="'+img+'"/>');
 
-                color: #fff;
-
-                width: 828px;
-                height: 1792px;
-
-                box-sizing: border-box;
-
-                background-image: url("bybit_position_WORK.jpg");
-
-                background-position: center;
-            }
-
-            .top_bar {
-                height: 65px;
-                padding-top: 32px;
-                padding-left: 20px;
-            }
-
-            .app_menu {
-            }
-
-            .position {
-                margin-top: 380px;
-                height: 925px;
-                width: 100%;
-                color: #fff;
-                border-radius: 30px;
-                padding-left: 60px;
-                padding-right: 66px;
-                box-sizing: border-box;
-            }
-
-            .position_header {
-                height: 100px;
-                box-sizing: border-box;
-                padding-top: 25px;
-                padding-left: 5px;
-
-
-            }
-
-            .position_columns {
-                box-sizing: border-box;
-                width: 100%;
-                height: 100%;
-                padding-top: 20px;
-            }
-
-            .position_left, .position_right {
-                box-sizing: border-box;
-                float: left;
-                flex-direction: column;
-            }
-
-            .position_left {
-                opacity: 0;
-                width: 10%;
-
-            }
-
-            .position_right {
-                width: 90%;
-            }
-
-
-            .position_right > span {
-                width: 100%;
-                text-align: right;
-                font-size: 25px;
-                display: block;
-                margin-bottom: 27px;
-            }
-
-            .form {
-                flex-direction: column;
-
-            }
-
-            .form > div {
-                margin-bottom: 22px;
-            }
-
-            .get_ss_btn {
-                display: block;
-                width: 100px;
-                background-color: red;
-                color: black;
-                padding: 20px;
-                margin-top: 30px;
-                margin-bottom: 30px;
-            }
-
-
-            .position_size {
-                color: #DC5350;;
-
-            }
-            .liq_price {
-                color: orange;
-            }
-
-            .entering_values_box {
-                background-color: lightgrey;
-            }
-
-            .coin_name {
-                display: inline-block;
-                font-size: 30px;
-                margin-top: 10px;
-            }
-
-            .longshort {
-                display: inline-block;
-                border-radius: 5px;
-                padding-left: 7px;
-                padding-right: 7px;
-                background-color: blue;
-                font-size: 21px;
-
-                padding-top: 5px;
-                padding-bottom: 5px;
-
-                margin-left: 5px;
-            }
-
-            .laverage {
-                display: inline-block;
-                border-radius: 5px;
-
-                padding-left: 10px;
-                padding-right: 10px;
-                margin-left: 8px;
-                background-color: #2A241B;
-                color: #F7A619;
-                font-size: 20px;
-
-                padding-top: 5px;
-                padding-bottom: 5px;
-
-            }
-
-            .unr_pnl, .unr_pnl_rounded, .r_pnl, .r_pnl_rounded {
-                color: #DC5350;
-            }
-
-            .unr_pnl, .r_pnl {
-                margin-bottom: 5px !important;
-            }
-
-            .margin {
-                margin-top: 110px;
-            }
-
-        </style>
-
-        <script type="text/javascript">
-
-            function save() {
-
-                // Вводные данные из формы 
-                var template_type = document.myform.template_type.value;
-                var time = document.myform.time.value;
-                var coin = document.myform.coin.value;
-                var longshort = document.myform.longshort.value 
-                var laverage = document.myform.laverage.value;
-                var entry_price = document.myform.entry_price.value;
-                var margin = document.myform.margin.value + " USDT";
-                var balance = document.myform.balance.value;
-                var tp = document.myform.tp.value;
-                var sl = document.myform.tp.value;
-
-
-                // Установка фона скриншота 
-                if (template_type == "work") {
-                    document.getElementById('iphone_screen').style.backgroundImage="url(bybit_position_WORK.jpg)"; 
-                } else {
-                    document.getElementById('iphone_screen').style.backgroundImage="url(bybit_position_TEST.png)"; 
+                        });
+                    };
                 }
 
-
-                // Отрисовка ярлыка продажа / покупка
-                if (longshort == "Long") {
-                    document.getElementById("longshort").textContent = "Long";
-                    document.getElementById("longshort").style.backgroundColor = "#1A2C27";
-                    document.getElementById("longshort").style.color = "#20B26C";
-                } else {
-                    document.getElementById("longshort").textContent = "Short";
-                    document.getElementById("longshort").style.backgroundColor = "#331E22";
-                    document.getElementById("longshort").style.color = "#EF454A";
-                }
-
-
-                // Получение цены монеты 
-                const url = "https://api.binance.com/api/v3/ticker/price?symbol=" + coin;
-                const xhr = new XMLHttpRequest();
-                xhr.open("GET", url, true);
-                xhr.responseType = 'json';
-                xhr.send();
-                xhr.onload = () => {
-                    console.log(xhr.response.price);
-                };
-
-
-                // Отрисовка шапки позиции
-                document.getElementById("iphone_time").textContent = time;
-                document.getElementById("coin").textContent = coin;
-                document.getElementById("laverage").textContent = "Cross " + laverage + ".00x";
-
-                // Отрисовка тела позиции
-                document.getElementById("position_size").textContent = "27.98";
-                document.getElementById("entry_price").textContent = entry_price;
-                document.getElementById("mark_price").textContent = "2,485.37";
-                document.getElementById("liq_price").textContent = "1,687.72";
-                document.getElementById("value").textContent = "51,731.0050";
-                document.getElementById("unr_pnl").textContent = "-17,807.6355" + " USDT " + "(-1721.18%)";
-                document.getElementById("unr_pnl_rounded").textContent = "~ -17807.64" + " USD";
-                document.getElementById("r_pnl").textContent = "-31.0386" + " USDT";
-                document.getElementById("r_pnl_rounded").textContent = "~ -31.04" + " USD";
-                document.getElementById("margin").textContent = margin;
-            }
-        </script>    
-
-
-        <script type="text/javascript" src="html2canvas.js"></script>
-        <script>
-            // Создание скриншота
-            window.onload = function() {
-                // Кнопка нажата
-                document.getElementById("get_images").onclick = function() {
-
-                    html2canvas(document.getElementById("iphone_screen")).then(function(canvas) {
-
-                        const link = document.createElement('a');
-                        link.download = 'download.png';
-                        link.href = canvas.toDataURL("image/png");
-                        link.click();
-                        link.delete;
-
-                        //var my_screen = canvas;
-                        //document.getElementById("result").appendChild(my_screen);
-
-                        
-                        //var img = canvas.toDataURL("image/png");
-
-                        //localStorage.setItem("elephant", img);
-
-                        //document.write('<img crossorigin="anonymous" src="'+img+'"/>');
-
-                    });
-                };
-            }
-
-        </script>
-      </HEAD>
-
+            </script>
+        </HEAD>
 
         <BODY>
             <div class="entering_values_box">
-                <h1>ВВОД ЗНАЧЕНИЙ</h1>
-                <FORM class="form" NAME="myform">
+                <h1>Скриншот позиции</h1>
 
+                <FORM class="form" NAME="myform">
                     <div>
                         <span>Тип шаблона:</span>
                         <label>Рабочий (пустой)</label>
-                        <input type="radio" id="template_type" name="template_type" value="work" checked="checked"/>
+                        <input type="radio" id="template_type" name="template_type" value="work" />
                         <label>Тестовый (для подгонки)</label>
-                        <input type="radio" id="template_type" name="template_type" value="test" />
+                        <input type="radio" id="template_type" name="template_type" value="test" checked="checked"/>
 
                     </div>
 
@@ -316,9 +70,9 @@
 
                     <div>
                         <label>BUY</label>
-                        <input type="radio" name="longshort" value="Long" checked="checked"/>
+                        <input type="radio" name="longshort" value="Long" />
                         <label>SELL</label>
-                        <input type="radio" name="longshort" value="Short" />
+                        <input type="radio" name="longshort" value="Short" checked="checked"/>
 
                     </div>
 
@@ -364,9 +118,11 @@
 
                 <div class="position">
                     <div class="position_header">
-                        <span class="coin_name" id="coin">XXXUSDT</span>
-                        <span id="longshort" class="longshort">Short</span>
-                        <span id="laverage" class="laverage">Cross 00.00x</span>
+                        <div class="position_header_box">
+                            <span class="coin_name" id="coin">XXXUSDT</span>
+                            <span id="longshort" class="longshort">Short</span>
+                            <span id="laverage" class="laverage">Cross 00.00x</span>
+                        </div>
                     </div>
 
                     <div class="position_columns">
@@ -383,6 +139,7 @@
                             <span>TP/SL</span>
                             <span>Trailing Stop</span>
                         </div>
+
                         <div class="position_right">
                             <span id='position_size' class="position_size">---</span>
                             <span id='entry_price'>---</span>
@@ -394,16 +151,14 @@
                             <span id='r_pnl' class="r_pnl">---</span>
                             <span id='r_pnl_rounded' class="r_pnl_rounded">---</span>
                             <span id='margin' class="margin">---</span>
-                            <span id='tp_sl'>---</span>
+                            <span id='tpsl' class="tpsl">
+                                <span class="tp" id="tp">--</span>
+                                <span>/</span>
+                                <span class="sl" id="sl">--</span>
+                            </span>
                         </div>    
                     </div>
-
                 </div>
-
             </div>
-
-
-            
-
       </BODY>
 </HTML>
