@@ -16,8 +16,6 @@ input {
 .container {
     box-sizing: border-box;
     height: 100%;
-    padding-left: 50px;
-    padding-right: 50px;
 }
 
 .form_box, .iphone_screen {
@@ -47,13 +45,13 @@ input {
     float: right;
     color: #fff;
 
-    width: 414px;
-    height: 896px;
+    float: right;
 
+    width: 828px;
+    height: 1792px;
     box-sizing: border-box;
     background-image: url("bybit_position_WORK.jpg");
     background-position: center;
-    background-size: 414px 896px;
 }
 
 .top_bar {
